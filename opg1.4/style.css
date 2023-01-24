@@ -1,3 +1,6 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 form{
     display:flex;
     flex-direction: column;
@@ -8,6 +11,17 @@ form > div{
     grid-template-columns: 1fr 3fr;
     gap:1rem;
 }
-input{
+input,textarea{
     padding:0.5rem;
+}
+#displayTable{
+    display:flex;
+    justify-content: space-between;
+}
+#displayTable > div{
+    display:flex;
+    flex-direction: column;
+    border: 0.1px solid rgb(221, 221, 221);
+    padding: 2px;
+    text-align: center;
 }

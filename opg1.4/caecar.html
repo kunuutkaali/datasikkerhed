@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caecar Cipher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="forms">
+        <form id="decryptForm">
+            <h2>Decrypt Caecar</h2>
+            <div>
+                <label for="cryptedInput">Cryptet string:</label>
+                <textarea id="cryptedInput" rows="10">Iuhnyhqvdqdobvh</textarea>
+            </div>
+            <div>
+                <label for="shift">Number of shifts</label>
+                <input type="number" id="shift" value="3" min="0" step="1">
+            </div>
+            <input type="submit" id="decryptBtn" value="Decrypt">
+            <div>
+                <label for="result">Result:</label>
+                <textarea id="result" rows="10"></textarea>
+            </div>
+        </form>
+        <form id="encryptForm">
+            <h2>Encrypt Caecar</h2>
+            <div>
+                <label for="encryptInput">String to encrypt:</label>
+                <textarea id="encryptInput" rows="10">frekvensanalyse</textarea>
+            </div>
+            <div>
+                <label for="shiftBy">Number of shifts</label>
+                <input type="number" id="shiftBy" value="3" min="0" step="1">
+            </div>
+            <input type="submit" id="encryptBtn" value="Encrypt">
+            <div>
+                <label for="encrypted">Encrypted:</label>
+                <textarea id="encrypted" rows="10"></textarea>
+            </div>
+        </form>
+    </div>
+    <script src="caecar.js"></script>
+</body>
+</html>

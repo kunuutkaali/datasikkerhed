@@ -25,3 +25,8 @@ input,textarea{
     padding: 2px;
     text-align: center;
 }
+.forms{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:2rem;
+}

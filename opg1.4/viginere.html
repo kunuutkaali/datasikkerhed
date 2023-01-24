@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viginère Cipher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="forms">
+        <form id="decryptForm">
+            <h2>Decrypt Viginère</h2>
+            <div>
+                <label for="cryptedInput">Cryptet string:</label>
+                <textarea id="cryptedInput" rows="10">MQT xv rx nhkobbbxewr pwk</textarea>
+            </div>
+            <div>
+                <label for="key">Key</label>
+                <input type="text" id="key" value="kitten">
+            </div>
+            <input type="submit" id="decryptBtn" value="Decrypt">
+            <div>
+                <label for="result">Result:</label>
+                <textarea id="result" rows="10"></textarea>
+            </div>
+        </form>
+        <form id="encryptForm">
+            <h2>Encrypt Viginère</h2>
+            <div>
+                <label for="encryptInput">String to encrypt:</label>
+                <textarea id="encryptInput" rows="10"></textarea>
+            </div>
+            <div>
+                <label for="encryptKey">Encript key</label>
+                <input type="text" id="encryptKey" value="kitten">
+            </div>
+            <input type="submit" id="encryptBtn" value="Encrypt">
+            <div>
+                <label for="encrypted">Encrypted:</label>
+                <textarea id="encrypted" rows="10">MQT xv rx nhkobbbxewr pwk</textarea>
+            </div>
+        </form>
+    </div>
+    <script src="viginere.js"></script>
+</body>
+</html>

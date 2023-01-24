@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caecar Cipher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="decryptForm">
+        <h2>Decrypt Caecar</h2>
+        <div>
+            <label for="cryptedInput">Cryptet string:</label>
+            <textarea name="" id="cryptedInput" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <label for="shift">Number of shifts</label>
+            <input type="number" id="shift" value="3">
+        </div>
+        <input type="submit" value="decrypt">
+        <div>
+            <label for="result">Result:</label>
+            <textarea name="" id="result" cols="30" rows="10"></textarea>
+        </div>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>

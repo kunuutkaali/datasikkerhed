@@ -1,8 +1,3 @@
-const input = document.getElementById('cryptedInput');
-const shift = document.getElementById('shift');
-const result = document.getElementById('result');
-const decryptForm = document.getElementById('decryptForm');
-const decryptBtn = document.getElementById('decryptBtn');
 const displayTable = document.createElement('div');
 displayTable.setAttribute('id', 'displayTable');
 document.body.prepend(displayTable);
@@ -17,39 +12,49 @@ alphabet.forEach((value, i) =>{
     let numberDiv = document.createElement('div');
 })
 
-// Objectives:
-// Encrypt
-// - Map indexes of input letters
-// - Shift Indexes with suplied int value
-// - Remap shifted indexed letters with alphabet
-// - Show result
 
+// Decrypt defines
+const cryptedInput = document.getElementById('cryptedInput');
+const decryptKey = document.getElementById('decryptKey');
+const decryptResult = document.getElementById('decryptResult');
+const decryptForm = document.getElementById('decryptForm');
+const decryptBtn = document.getElementById('decryptBtn');
 
-
-
-// Decrypt
-// - Map indexes of input letters - Function returns an indexed array
+// MapIndexes
 const mapIndexes = (str) => {
     let indexedArr = [];
     for(let letter of str){
-        alphabet.forEach((value, i) => {
-            if(letter == value) indexedArr.push(i);
-        })
+        if(letter == " "){
+            indexedArr.push(letter);
+        }else{
+            alphabet.forEach((value, i) => {
+                if(letter == value) indexedArr.push(i);
+            })
+        }
     }
     return indexedArr;
 }
 
 // - Shift Indexes with suplied int value
-const shiftIndexes = (arr, shift) => {
+const shiftIndexes = (arr, keySequence) => {
     let shiftedIndexes = [];
+    let counter = 0;
+    let limit = keySequence.length-1;
     for(let index of arr){
-        if(shift > alphabet.length){
-            shift = shift%alphabet.length;
-        }
-        if((index-shift) < 0){
-            shiftedIndexes.push(alphabet.length+(index-shift));
+        if(index == " "){
+            shiftedIndexes.push(' ');
         }else{
-            shiftedIndexes.push(index-shift);
+            let shift = keySequence[counter];
+            if(counter == limit){
+                counter = 0;
+            }else{
+                counter++;
+            }
+            if((index-shift) < 0){
+                shiftedIndexes.push(alphabet.length+(index-shift));
+            }else{
+                shiftedIndexes.push(index-shift);
+            }
         }
     }
     return shiftedIndexes;
@@ -59,11 +64,15 @@ const shiftIndexes = (arr, shift) => {
 const mapLetters = (arr) =>{
     let resultArr = [];
     for(let index of arr){
-        alphabet.forEach((value, i) =>{
-            if(index == i){
-                resultArr.push(value);
-            }
-        })
+        if(index === " "){
+            resultArr.push(' ');
+        }else{
+            alphabet.forEach((value, i) =>{
+                if(index == i){
+                    resultArr.push(value);
+                }
+            })
+        }
     }
     return resultArr;
 }
@@ -74,25 +83,99 @@ const updateResult = (arr) =>{
     for(let letter of arr){
         string = string + letter;
     }
-    result.innerText = string;
+    decryptResult.innerText = string;
 }
 
 // Decrypt:
-const decrypt = () =>{
+const decrypt = () =>{ 
+    // MapKeySequence
+    let keySequence = mapIndexes(decryptKey.value.toLowerCase());
+
     // IndexLetters
-    let indexArr = mapIndexes(input.value.toLowerCase());
+    let indexArr = mapIndexes(cryptedInput.value.toLowerCase());
+
     // ShiftIndexes
-    let shifted = shiftIndexes(indexArr, parseInt(shift.value));
-    // RemapLetters
+    let shifted = shiftIndexes(indexArr, keySequence);
+
+    // // RemapLetters
     let resultArr = mapLetters(shifted);
-    // Show result
+
+    // // Show result
     updateResult(resultArr);
 }
 
-// Eventhandlers:
-input.addEventListener('keyup', decrypt);
+// Decrypt Eventhandlers:
+cryptedInput.addEventListener('keyup', decrypt)
 decryptForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     decrypt();
 })
-shift.addEventListener('change', decrypt);
+decryptKey.addEventListener('keyup', decrypt)
+
+
+
+
+// Encrypt defines
+const encryptForm = document.getElementById('encryptForm');
+const encryptInput = document.getElementById('encryptInput');
+const encryptKey = document.getElementById('encryptKey');
+const encrypted = document.getElementById('encrypted');
+const encryptBtn = document.getElementById('encryptBtn');
+
+// - Shift Indexes with suplied int value
+const shiftWithKey = (arr, keySequence) => {
+    let shiftedIndexes = [];
+    let counter = 0;
+    let limit = keySequence.length-1;
+    for(let index of arr){
+        if(index === " "){
+            shiftedIndexes.push(' ');
+        }else{
+            let shift = keySequence[counter];
+            if(counter == limit){
+                counter = 0;
+            }else{
+                counter++;
+            }
+            if((index+shift) > alphabet.length){
+                shiftedIndexes.push((index+shift)-alphabet.length);
+            }else{
+                shiftedIndexes.push(index+shift);
+            }
+        }
+    }
+    return shiftedIndexes;
+}
+// Update encrypted
+const showEncrypted = (arr) =>{
+    let string = "";
+    for(let letter of arr){
+        string = string + letter;
+    }
+    encrypted.innerText = string;
+}
+
+// Encrypt
+const encrypt = () =>{
+    // - Map key index sequence - reuse function above
+    let keySequence = mapIndexes(encryptKey.value.toLowerCase())
+
+    // - Map indexes - reuse function above
+    let indexArr = mapIndexes(encryptInput.value.toLowerCase())
+
+    // - Shift Indexes with suplied key sequence
+    let shiftedIndexes = shiftWithKey(indexArr, keySequence);
+    
+    // - Remap shifted indexed letters with alphabet - reuse function above
+    let resultArr = mapLetters(shiftedIndexes);
+
+    // - Show result
+    showEncrypted(resultArr);
+}
+// Encript eventhandlers:
+encryptInput.addEventListener('keyup', encrypt)
+encryptKey.addEventListener('keyup', encrypt)
+encryptForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    encrypt();
+})

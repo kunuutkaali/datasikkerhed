@@ -1,15 +1,12 @@
 const displayTable = document.createElement('div');
 displayTable.setAttribute('id', 'displayTable');
 document.body.prepend(displayTable);
-const alphabet = [ 
-    'a', 'b', 'c', 'd','e','f','g', 'h','i', 'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
-];
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 // Display used alphabet width numbers:
 alphabet.forEach((value, i) =>{
     let letterDiv = document.createElement('div');
     letterDiv.innerHTML = value + " <br> " + i;
     displayTable.append(letterDiv);
-    let numberDiv = document.createElement('div');
 })
 
 
@@ -179,3 +176,27 @@ encryptForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     encrypt();
 })
+
+const alpha = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const string = "MQT xv rx nhkobbbxewr pwk...";
+const key = "Kitten";
+const viginereDecipher = (str, key) =>{
+    let counter = 0;
+    const result = str.split('').map((letter) =>{
+        if(alpha.includes(letter.toLowerCase())){
+            const charI = alpha.indexOf(letter.toLowerCase());
+            const keyIndex = alphabet.indexOf(key[counter % key.length]);
+            const newIndex = (charI - keyIndex + 26) % alpha.length;
+            if(letter === letter.toUpperCase()){
+                letter = alpha[newIndex].toUpperCase();
+            }else{
+                letter = alpha[newIndex];
+            }
+            counter++;
+        }
+        return letter;
+    })
+    return result;
+}
+const result = viginereDecipher(string, key.toLowerCase())
+console.log(result);
